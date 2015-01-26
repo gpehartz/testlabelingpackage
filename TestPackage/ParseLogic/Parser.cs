@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web.UI.Design.WebControls;
 using ICETeam.TestPackage.Declarations;
 using ICETeam.TestPackage.LabelDefinitions;
 using Microsoft.CodeAnalysis;
@@ -82,9 +81,9 @@ namespace ICETeam.TestPackage.ParseLogic
             }
         }
 
-        private List<NodeWithLabels> GetChanges(List<NodeWithLabels> labelsBefore, List<NodeWithLabels> labelsAfter)
+        private static List<NodeWithLabels> GetChanges(IEnumerable<NodeWithLabels> labelsBefore, IEnumerable<NodeWithLabels> labelsAfter)
         {
-            
+            return labelsAfter.Where(newLabel => !labelsBefore.Contains(newLabel, NodeWithLabels.NodeContainingDocumentIdComparer)).ToList();
         }
 
         private List<NodeWithLabels> GetLabelsForClasses()
@@ -131,11 +130,6 @@ namespace ICETeam.TestPackage.ParseLogic
             }
         }
 
-        private static readonly IEqualityComparer<NodeWithLabels> NodeContainingDocumentIdComparerInstance = new NodeContainingDocumentIdEqualityComparer();
-
-        public static IEqualityComparer<NodeWithLabels> NodeContainingDocumentIdComparer
-        {
-            get { return NodeContainingDocumentIdComparerInstance; }
-        }
+        public static IEqualityComparer<NodeWithLabels> NodeContainingDocumentIdComparer { get; } = new NodeContainingDocumentIdEqualityComparer();
     }
 }

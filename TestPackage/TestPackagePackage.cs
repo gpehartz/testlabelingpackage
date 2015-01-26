@@ -83,15 +83,6 @@ namespace ICETeam.TestPackage
         {
             var changedDocument = e.NewSolution.GetDocument(e.DocumentId);
             if (changedDocument == null) return;
-
-            var oldDocument = e.OldSolution.GetDocument(e.DocumentId);
-            if (oldDocument != null)
-            {
-                var oldSyntaxTree = oldDocument.GetSyntaxTreeAsync().Result;
-                var changedSyntaxTree = changedDocument.GetSyntaxTreeAsync().Result;
-
-                var changes = changedSyntaxTree.GetChanges(oldSyntaxTree);
-            }
             
             _parseLogic.ReparseItemsForDocument(_vsWorkspace, changedDocument);
         }
