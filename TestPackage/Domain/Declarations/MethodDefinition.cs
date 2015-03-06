@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ICETeam.TestPackage.Declarations
+namespace ICETeam.TestPackage.Domain.Declarations
 {
     public class MethodDefinition : BaseDefinition
     {

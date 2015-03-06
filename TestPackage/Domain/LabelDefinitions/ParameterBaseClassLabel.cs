@@ -1,4 +1,4 @@
-﻿namespace ICETeam.TestPackage.LabelDefinitions
+﻿namespace ICETeam.TestPackage.Domain.LabelDefinitions
 {
     public class ParameterBaseClassLabel : BaseLabel
     {

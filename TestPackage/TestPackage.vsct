@@ -44,8 +44,6 @@
       <Group guid="guidTestPackageCmdSet" id="MyMenuGroup" priority="0x0600">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
       </Group>
-      
-
 
     </Groups>
     
@@ -69,7 +67,13 @@
         </Strings>
       </Button>
 
-
+      <Button guid="guidTestPackageCmdSet" id="cmdidToolWindow" priority="0x0100" type="Button">
+        <Parent guid="guidTestPackageCmdSet" id="MyMenuGroup"/>
+        <Icon guid="guidImages" id="bmpPic2" />
+        <Strings>
+          <ButtonText>My Tool Window</ButtonText>
+        </Strings>
+      </Button>
 
     </Buttons>
    
@@ -96,12 +100,10 @@
     
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidTestPackageCmdSet" value="{834abcc2-72e7-4765-8f8d-8db68066cdef}">
-
       <IDSymbol name="MyMenuGroup" value="0x1020" />
       <IDSymbol name="cmdidNavigate" value="0x0100" />
-    </GuidSymbol>
-    
-    
+      <IDSymbol name="cmdidToolWindow" value="0x0101" />
+    </GuidSymbol>   
     
     <GuidSymbol name="guidImages" value="{a116afa9-abb8-4410-a56a-a0b19b394eaa}" >
       <IDSymbol name="bmpPic1" value="1" />

@@ -1,4 +1,5 @@
-﻿using ICETeam.TestPackage.Declarations;
+﻿using System;
+using ICETeam.TestPackage.Domain.Declarations;
 using Microsoft.CodeAnalysis;
 
 namespace ICETeam.TestPackage.Extensions
@@ -21,6 +22,8 @@ namespace ICETeam.TestPackage.Extensions
         {
             if (GetFullName(t) == subType.GetFullName) return true;
             if (GetFullName(t) == typeof(object).FullName) return false;
+
+            if (t.BaseType == null) return false;
             return IsSubTypeOf(t.BaseType, subType);
         }
 

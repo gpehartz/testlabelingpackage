@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using ICETeam.TestPackage.Declarations;
+using ICETeam.TestPackage.Domain;
+using ICETeam.TestPackage.Domain.Declarations;
 using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.LanguageServices;
 

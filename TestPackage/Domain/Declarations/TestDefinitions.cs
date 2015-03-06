@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ICETeam.TestPackage.Declarations
+namespace ICETeam.TestPackage.Domain.Declarations
 {
     public static class TestDefinitions
     {
@@ -39,7 +39,7 @@ namespace ICETeam.TestPackage.Declarations
         {
             Definitions = new List<BaseDefinition>
             {
-                //ApplyEventMethodDefinition,
+                ApplyEventMethodDefinition,
                 EventDeclarationDefinition
             };
         }

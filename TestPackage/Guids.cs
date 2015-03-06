@@ -10,5 +10,10 @@ namespace ICETeam.TestPackage
         public const string guidTestPackageCmdSetString = "834abcc2-72e7-4765-8f8d-8db68066cdef";
 
         public static readonly Guid guidTestPackageCmdSet = new Guid(guidTestPackageCmdSetString);
+
+
+        public const string guidToolWindowCmdSetString = "4c4c0def-62df-4b7f-acca-5dc36c58cb16";
+
+        public static readonly Guid guidToolWindowCmdSet = new Guid(guidToolWindowCmdSetString);
     };
 }

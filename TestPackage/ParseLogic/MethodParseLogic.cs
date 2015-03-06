@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ICETeam.TestPackage.Declarations;
+using ICETeam.TestPackage.Domain;
+using ICETeam.TestPackage.Domain.Declarations;
+using ICETeam.TestPackage.Domain.LabelDefinitions;
 using ICETeam.TestPackage.Extensions;
-using ICETeam.TestPackage.LabelDefinitions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualStudio.LanguageServices;
@@ -43,6 +44,7 @@ namespace ICETeam.TestPackage.ParseLogic
             foreach (var classDeclaration in classDeclarations)
             {
                 var declaredSymbol = (ITypeSymbol) semanticModel.GetDeclaredSymbol(classDeclaration);
+                if(declaredSymbol == null) continue;
 
                 foreach (var parameterType in methodDefinition.ParameterTypes)
                 {

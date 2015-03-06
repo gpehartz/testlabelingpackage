@@ -1,5 +1,5 @@
 ﻿using System;
-using ICETeam.TestPackage.Declarations;
+using ICETeam.TestPackage.Domain.Declarations;
 
 namespace ICETeam.TestPackage.ParseLogic
 {
