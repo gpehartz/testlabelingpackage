@@ -9,8 +9,13 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type domain:NodeWithLabels}">
-            <TextBlock Text="{Binding Path=Node}" />
-        </DataTemplate>
+			<Border BorderBrush="Black" BorderThickness="1">
+				<StackPanel>
+					<TextBlock Text="{Binding Path=Node}" />
+					<ListView ItemsSource="{Binding Path=AttachedLabels}" />
+				</StackPanel>
+			</Border>
+		</DataTemplate>
     </UserControl.Resources>
     <Grid>
         <ListBox ItemsSource="{Binding Path=ItemsToShow}" SelectedItem="{Binding Path=SelectedItem}"></ListBox>

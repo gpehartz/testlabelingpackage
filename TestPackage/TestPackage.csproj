@@ -219,10 +219,12 @@
     <Compile Include="Domain\Declarations\BaseDefinition.cs" />
     <Compile Include="Domain\Declarations\MethodDefinition.cs" />
     <Compile Include="Domain\Declarations\VariableDeclarationDefinition.cs" />
+    <Compile Include="Domain\Declarations\VariableDeclarationMethodConnectionDefinition.cs" />
     <Compile Include="Domain\LabelDefinitions\GenericParameterBaseClassLabel.cs" />
     <Compile Include="Domain\LabelDefinitions\GenericParameterLabel.cs" />
     <Compile Include="Domain\LabelDefinitions\InheritedLabel.cs" />
     <Compile Include="Domain\NodeWithLabels.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\TextSpanExtensions.cs" />
     <Compile Include="Extensions\VsWindowFrameExtensions.cs" />
     <Compile Include="Extensions\ReferenceLocationExtensions.cs" />

@@ -97,33 +97,42 @@ namespace ICETeam.TestPackage.ParseLogic
                 if (AreParameterTypesInvalid(methodDefinition, methodSymbol)) continue;
                 if (AreParameterBaseTypesInvalid(methodDefinition, methodSymbol)) continue;
 
-                var node = BuildParsedItem(methodDeclaration, methodDefinition, document);
+                var node = BuildParsedItem(methodDeclaration, methodSymbol, methodDefinition.Tags, document.Id);
                 result.Add(node);
             }
 
             return result;
         }
 
-        private static NodeWithLabels BuildParsedItem(SyntaxNode methodDeclaration, MethodDefinition methodDefinition, Document document)
+        private static NodeWithLabels BuildParsedItem(SyntaxNode methodDeclaration, IMethodSymbol methodSymbol, IEnumerable<string> tags, DocumentId documentId)
         {
             var parsedItem = new NodeWithLabels
             {
                 Node = methodDeclaration,
-                ContainingDocumentId = document.Id,
+                ContainingDocumentId = documentId,
                 AttachedLabels = new List<BaseLabel>
                     {
-                        new MethodNameLabel {Name = methodDefinition.Name}
+                        new MethodNameLabel {Name = methodSymbol.Name},
+                        new NameSpaceLabel { NameSpace = methodSymbol.ContainingNamespace.Name }
                     }
             };
 
-            if (!string.IsNullOrEmpty(methodDefinition.NameSpace))
+            if (tags != null)
             {
-                parsedItem.AttachedLabels.Add(new NameSpaceLabel { NameSpace = methodDefinition.NameSpace });
+                parsedItem.AttachedLabels.AddRange(tags.Select(item => new TagLabel {Name = item}));
             }
 
-            parsedItem.AttachedLabels.AddRange(methodDefinition.Tags.Select(item => new TagLabel { Name = item }));
-            parsedItem.AttachedLabels.AddRange(methodDefinition.ParameterTypes.Select(item => new ParameterLabel { TypeName = item.Type }));
-            parsedItem.AttachedLabels.AddRange(methodDefinition.ParameterBaseTypes.Select(item => new ParameterBaseClassLabel { TypeName = item.Type }));
+            foreach (var parameterSymbol in methodSymbol.Parameters)
+            {
+                parsedItem.AttachedLabels.Add(new ParameterLabel {TypeName = parameterSymbol.Type.Name, NameSpace = parameterSymbol.Type.ContainingNamespace.Name});
+
+                var parameterBaseClassLabels = parameterSymbol.Type.GetSubTypes().Select(item => new ParameterBaseClassLabel {TypeName = item.TypeName, NameSpace = item.NameSpace});
+
+                foreach (var parameterBaseClassLabel in parameterBaseClassLabels)
+                {
+                    parsedItem.AttachedLabels.AddIfNotExists(parameterBaseClassLabel, ParameterBaseClassLabel.NameSpaceTypeNameComparer);
+                }
+            }
 
             return parsedItem;
         }

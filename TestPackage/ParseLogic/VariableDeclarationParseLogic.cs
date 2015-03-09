@@ -89,36 +89,36 @@ namespace ICETeam.TestPackage.ParseLogic
                 if (variableDeclarationDefinition.BaseType != null && !typeSymbol.IsSubType(variableDeclarationDefinition.BaseType)) continue;
                 if (variableDeclarationDefinition.Type != null && !typeSymbol.IsType(variableDeclarationDefinition.Type)) continue;
 
-                var node = BuildParsedItem(variableDeclaration, variableDeclarationDefinition, document);
+                var node = BuildParsedItem(variableDeclaration, typeSymbol, variableDeclarationDefinition.Tags, document.Id);
                 result.Add(node);
             }
 
             return result;
         }
 
-        private static NodeWithLabels BuildParsedItem(SyntaxNode syntaxNode, VariableDeclarationDefinition variableDeclarationDefinition, Document document)
+        private static NodeWithLabels BuildParsedItem(SyntaxNode syntaxNode, ITypeSymbol typeSymbol, IEnumerable<string> tags, DocumentId documentId)
         {
             var parsedItem = new NodeWithLabels
             {
                 Node = syntaxNode,
-                ContainingDocumentId = document.Id,
-                AttachedLabels = new List<BaseLabel>()
+                ContainingDocumentId = documentId,
+                AttachedLabels = new List<BaseLabel>
+                {
+                    new NameSpaceLabel { NameSpace = typeSymbol.ContainingNamespace.Name }
+                }
             };
 
-            if (variableDeclarationDefinition.Type != null)
+            if (tags != null)
             {
-                parsedItem.AttachedLabels.Add(new VariableTypeLabel { TypeName = variableDeclarationDefinition.Type.Type });
-                parsedItem.AttachedLabels.Add(new NameSpaceLabel { NameSpace = variableDeclarationDefinition.Type.NameSpace });
+                parsedItem.AttachedLabels.AddRange(tags.Select(item => new TagLabel {Name = item}));
             }
+            parsedItem.AttachedLabels.Add(new VariableTypeLabel { TypeName = typeSymbol.Name });
 
-            if (variableDeclarationDefinition.BaseType != null)
-            {
-                parsedItem.AttachedLabels.Add(new VariableBaseTypeLabel { TypeName = variableDeclarationDefinition.BaseType.Type });
-            }
+            var parameterBaseClassLabels = typeSymbol.GetSubTypes().Select(item => new ParameterBaseClassLabel {TypeName = item.TypeName, NameSpace = item.NameSpace});
 
-            if (variableDeclarationDefinition.Tags != null)
+            foreach (var parameterBaseClassLabel in parameterBaseClassLabels)
             {
-                parsedItem.AttachedLabels.AddRange(variableDeclarationDefinition.Tags.Select(item => new TagLabel { Name = item }));
+                parsedItem.AttachedLabels.AddIfNotExists(parameterBaseClassLabel, ParameterBaseClassLabel.NameSpaceTypeNameComparer);
             }
 
             return parsedItem;

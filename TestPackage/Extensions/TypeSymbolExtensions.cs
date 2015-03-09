@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ICETeam.TestPackage.Domain.Declarations;
 using Microsoft.CodeAnalysis;
 
@@ -27,9 +28,34 @@ namespace ICETeam.TestPackage.Extensions
             return IsSubTypeOf(t.BaseType, subType);
         }
 
+        public static IEnumerable<TypeNameWithNameSpace> GetSubTypes(this ITypeSymbol t)
+        {
+            var result = new List<TypeNameWithNameSpace>();
+
+            if (t.BaseType == null) return result;
+
+            var baseType = t.BaseType;
+            while (GetFullName(baseType) != typeof(object).FullName)
+            {
+                result.Add(new TypeNameWithNameSpace { NameSpace = baseType.ContainingNamespace.Name, TypeName = baseType.Name });
+                baseType = baseType.BaseType;
+
+                if(baseType == null) break;
+            }
+
+            return result;
+        }
+
         private static string GetFullName(ISymbol t)
         {
             return t.ContainingNamespace.Name + "." + t.Name;
+        }
+
+        public class TypeNameWithNameSpace
+        {
+            public string NameSpace { get; set; }
+
+            public string TypeName { get; set; }
         }
     }
 }
