@@ -6,6 +6,8 @@ namespace ICETeam.TestPackage.Domain.Declarations
     {
         public static List<BaseDefinition> Definitions { get; set; }
 
+        public static List<BaseDefinition> Connections { get; set; }
+
         private static MethodDefinition ApplyEventMethodDefinition = new MethodDefinition
         {
             Name = "ApplyEvent",
@@ -35,10 +37,14 @@ namespace ICETeam.TestPackage.Domain.Declarations
             }
         };
 
-        private static  VariableDeclarationMethodConnectionDefinition ApplyEventWithEventConnection = new VariableDeclarationMethodConnectionDefinition
+        private static VariableDeclarationByBaseTypeAndMethodConnectionDefinition ApplyEventWithEventConnection = new VariableDeclarationByBaseTypeAndMethodConnectionDefinition
         {
-            MethodDefinition = ApplyEventMethodDefinition,
-            VariableDeclarationDefinition = EventDeclarationDefinition
+            MethodName = "ApplyEvent",
+            Type = new TypeDefinition
+            {
+                NameSpace = "Domain",
+                Type = "BaseEvent"
+            }
         };
 
         static TestDefinitions()
@@ -47,7 +53,11 @@ namespace ICETeam.TestPackage.Domain.Declarations
             {
                 ApplyEventMethodDefinition,
                 EventDeclarationDefinition,
-                //ApplyEventWithEventConnection
+            };
+
+            Connections = new List<BaseDefinition>
+            {
+                ApplyEventWithEventConnection
             };
         }
     }

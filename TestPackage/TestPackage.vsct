@@ -44,6 +44,10 @@
       <Group guid="guidTestPackageCmdSet" id="MyMenuGroup" priority="0x0600">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
       </Group>
+      
+      <Group guid="guidNavigationCmdSet" id="MyMenuGroup2" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN"/>
+      </Group>
 
     </Groups>
     
@@ -59,7 +63,7 @@
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
 
-      <Button guid="guidTestPackageCmdSet" id="cmdidNavigate" priority="0x0100" type="Button">
+      <Button guid="guidTestPackageCmdSet" id="cmdidParse" priority="0x0100" type="Button">
         <Parent guid="guidTestPackageCmdSet" id="MyMenuGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
@@ -69,9 +73,19 @@
 
       <Button guid="guidTestPackageCmdSet" id="cmdidToolWindow" priority="0x0100" type="Button">
         <Parent guid="guidTestPackageCmdSet" id="MyMenuGroup"/>
-        <Icon guid="guidImages" id="bmpPic2" />
+        <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
-          <ButtonText>My Tool Window</ButtonText>
+          <ButtonText>Labels window</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidNavigationCmdSet" id="cmdidNavigate" priority="0x0100" type="Button">
+        <Parent guid="guidNavigationCmdSet" id="MyMenuGroup2" />
+        <Icon guid="guidImages" id="bmpPic1" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Navigate...</ButtonText>
         </Strings>
       </Button>
 
@@ -101,8 +115,13 @@
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidTestPackageCmdSet" value="{834abcc2-72e7-4765-8f8d-8db68066cdef}">
       <IDSymbol name="MyMenuGroup" value="0x1020" />
-      <IDSymbol name="cmdidNavigate" value="0x0100" />
+      <IDSymbol name="cmdidParse" value="0x0100" />
       <IDSymbol name="cmdidToolWindow" value="0x0101" />
+    </GuidSymbol>   
+    
+    <GuidSymbol name="guidNavigationCmdSet" value="{4c4c0def-62df-4b7f-acca-5dc36c58cb16}">
+      <IDSymbol name="MyMenuGroup2" value="0x1021" />
+      <IDSymbol name="cmdidNavigate" value="0x0102" />
     </GuidSymbol>   
     
     <GuidSymbol name="guidImages" value="{a116afa9-abb8-4410-a56a-a0b19b394eaa}" >

@@ -11,12 +11,4 @@ namespace ICETeam.TestPackage.Domain.Declarations
         public List<TypeDefinition> ParameterTypes { get; set; }
         public List<TypeDefinition> ParameterBaseTypes { get; set; }
     }
-
-    public class TypeDefinition
-    {
-        public string NameSpace { get; set; }
-        public string Type { get; set; }
-
-        public string GetFullName => NameSpace + "." + Type;
-    }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ICETeam.TestPackage.Domain.LabelDefinitions;
 using Microsoft.CodeAnalysis;
 
@@ -34,5 +35,25 @@ namespace ICETeam.TestPackage.Domain
         }
 
         public static IEqualityComparer<NodeWithLabels> NodeContainingDocumentIdComparer { get; } = new NodeContainingDocumentIdEqualityComparer();
+
+        public string GetVariableNameSpace()
+        {
+            return AttachedLabels.OfType<VariableTypeLabel>().FirstOrDefault()?.NameSpace;
+        }
+
+        public string GetVariableType()
+        {
+            return AttachedLabels.OfType<VariableTypeLabel>().FirstOrDefault()?.TypeName;
+        }
+
+        public string GetVariableBaseNameSpace()
+        {
+            return AttachedLabels.OfType<VariableBaseTypeLabel>().FirstOrDefault()?.NameSpace;
+        }
+
+        public string GetVariableBaseType()
+        {
+            return AttachedLabels.OfType<VariableBaseTypeLabel>().FirstOrDefault()?.TypeName;
+        }
     }
 }

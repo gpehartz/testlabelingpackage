@@ -218,8 +218,9 @@
   <ItemGroup>
     <Compile Include="Domain\Declarations\BaseDefinition.cs" />
     <Compile Include="Domain\Declarations\MethodDefinition.cs" />
+    <Compile Include="Domain\Declarations\TypeDefinition.cs" />
     <Compile Include="Domain\Declarations\VariableDeclarationDefinition.cs" />
-    <Compile Include="Domain\Declarations\VariableDeclarationMethodConnectionDefinition.cs" />
+    <Compile Include="Domain\Declarations\VariableDeclarationByBaseTypeAndMethodConnectionDefinition.cs" />
     <Compile Include="Domain\LabelDefinitions\GenericParameterBaseClassLabel.cs" />
     <Compile Include="Domain\LabelDefinitions\GenericParameterLabel.cs" />
     <Compile Include="Domain\LabelDefinitions\InheritedLabel.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="Domain\LabelDefinitions\TagLabel.cs" />
     <Compile Include="Domain\LabelDefinitions\VariableBaseTypeLabel.cs" />
     <Compile Include="Domain\LabelDefinitions\VariableTypeLabel.cs" />
+    <Compile Include="NavigationLogic\Navigation.cs" />
     <Compile Include="ParseLogic\IDefinitionParser.cs" />
     <Compile Include="ParseLogic\MethodParseLogic.cs" />
     <Compile Include="ParseLogic\Parser.cs" />
@@ -255,10 +257,16 @@
     <Compile Include="TestPackagePackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PkgCmdID.cs" />
+    <Compile Include="UI\SelectedItemChangedEventArgs.cs" />
     <Compile Include="UI\TestPackageControl.xaml.cs">
       <DependentUpon>TestPackageControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\TestPackageControlViewModel.cs" />
+    <Compile Include="UI\TestPackageNavigationControl.xaml.cs">
+      <DependentUpon>TestPackageNavigationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TestPackageNavigationControlViewModel.cs" />
+    <Compile Include="UI\TestPackageNavigationToolWindow.cs" />
     <Compile Include="UI\TestPackageToolWindow.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -300,6 +308,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="UI\TestPackageControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\TestPackageNavigationControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

@@ -12,8 +12,8 @@ namespace ICETeam.TestPackage
         public static readonly Guid guidTestPackageCmdSet = new Guid(guidTestPackageCmdSetString);
 
 
-        public const string guidToolWindowCmdSetString = "4c4c0def-62df-4b7f-acca-5dc36c58cb16";
+        public const string guidNavigationCmdSetString = "4c4c0def-62df-4b7f-acca-5dc36c58cb16";
 
-        public static readonly Guid guidToolWindowCmdSet = new Guid(guidToolWindowCmdSetString);
+        public static readonly Guid guidNavigationCmdSet = new Guid(guidNavigationCmdSetString);
     };
 }

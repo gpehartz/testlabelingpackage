@@ -12,21 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ICETeam.TestPackage.UI;
-using Microsoft.VisualStudio.LanguageServices;
 
 namespace ICETeam.TestPackage.UI
 {
     /// <summary>
-    /// Interaction logic for TestPackageControl.xaml
+    /// Interaction logic for TestPackageNavigationControl.xaml
     /// </summary>
-    public partial class TestPackageControl : UserControl
+    public partial class TestPackageNavigationControl : UserControl
     {
-        public TestPackageControl()
+        public TestPackageNavigationControl()
         {
             InitializeComponent();
 
-            DataContext = new TestPackageControlViewModel();
+            DataContext = new TestPackageNavigationControlViewModel();
         }
     }
 }

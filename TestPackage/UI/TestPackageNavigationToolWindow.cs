@@ -3,13 +3,13 @@ using Microsoft.VisualStudio.Shell;
 
 namespace ICETeam.TestPackage.UI
 {
-    [Guid("f7163ab8-6330-4457-9b39-4c778ffaf17d")]
-    public class TestPackageToolWindow : ToolWindowPane
+    [Guid("3792CE65-706B-45C2-8F30-AA684A71CA36")]
+    public class TestPackageNavigationToolWindow : ToolWindowPane
     {
-        public TestPackageToolWindow() : base(null)
+        public TestPackageNavigationToolWindow() : base(null)
         {
             // Set the window title reading it from the resources.
-            this.Caption = "TEST";
+            this.Caption = "NAVIGATION";
             // Set the image that will appear on the tab of the window frame
             // when docked with an other window
             // The resource ID correspond to the one defined in the resx file
@@ -18,7 +18,7 @@ namespace ICETeam.TestPackage.UI
             this.BitmapResourceID = 301;
             this.BitmapIndex = 1;
 
-            var control = new TestPackageControl();
+            var control = new TestPackageNavigationControl();
 
             base.Content = control;
         }

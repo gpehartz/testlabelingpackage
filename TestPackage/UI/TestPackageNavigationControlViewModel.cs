@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using ICETeam.TestPackage.Domain;
+using ICETeam.TestPackage.NavigationLogic;
+using Microsoft.CodeAnalysis;
 using Microsoft.Practices.Prism.Mvvm;
 
 namespace ICETeam.TestPackage.UI
 {
-    public class TestPackageControlViewModel : BindableBase
+    public class TestPackageNavigationControlViewModel : BindableBase
     {
         private NodeWithLabels _selectedItem;
         private List<NodeWithLabels> _itemsToShow;
@@ -29,15 +31,16 @@ namespace ICETeam.TestPackage.UI
             }
         }
 
-        public TestPackageControlViewModel()
+        public TestPackageNavigationControlViewModel()
         {
-            ItemsToShow = new List<NodeWithLabels>();             
+            ItemsToShow = new List<NodeWithLabels>();
         }
 
-        public void RefreshData(IEnumerable<NodeWithLabels> parsedData)
+        public void RefreshData(IEnumerable<NodeWithLabels> parsedData, DocumentId documentId, int position)
         {
-            SelectedItem = null;
-            ItemsToShow = parsedData.ToList();
+            var labels = Navigation.GetNavigationTargets(parsedData, documentId, position);
+
+            ItemsToShow = labels.ToList();
         }
 
         private void OnSelectedItemChanged()

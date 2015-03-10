@@ -112,13 +112,13 @@ namespace ICETeam.TestPackage.ParseLogic
             {
                 parsedItem.AttachedLabels.AddRange(tags.Select(item => new TagLabel {Name = item}));
             }
-            parsedItem.AttachedLabels.Add(new VariableTypeLabel { TypeName = typeSymbol.Name });
+            parsedItem.AttachedLabels.Add(new VariableTypeLabel {TypeName = typeSymbol.Name, NameSpace = typeSymbol.ContainingNamespace.Name});
 
-            var parameterBaseClassLabels = typeSymbol.GetSubTypes().Select(item => new ParameterBaseClassLabel {TypeName = item.TypeName, NameSpace = item.NameSpace});
+            var parameterBaseClassLabels = typeSymbol.GetSubTypes().Select(item => new VariableBaseTypeLabel {TypeName = item.TypeName, NameSpace = item.NameSpace});
 
             foreach (var parameterBaseClassLabel in parameterBaseClassLabels)
             {
-                parsedItem.AttachedLabels.AddIfNotExists(parameterBaseClassLabel, ParameterBaseClassLabel.NameSpaceTypeNameComparer);
+                parsedItem.AttachedLabels.AddIfNotExists(parameterBaseClassLabel, VariableBaseTypeLabel.TypeNameNameSpaceComparer);
             }
 
             return parsedItem;
