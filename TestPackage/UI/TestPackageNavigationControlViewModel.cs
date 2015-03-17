@@ -41,6 +41,7 @@ namespace ICETeam.TestPackage.UI
             var labels = Navigation.GetNavigationTargets(parsedData, documentId, position);
 
             ItemsToShow = labels.ToList();
+            SelectedItem = null;
         }
 
         private void OnSelectedItemChanged()

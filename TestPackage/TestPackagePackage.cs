@@ -56,6 +56,7 @@ namespace ICETeam.TestPackage
         private static IServiceProvider _globalServiceProvider;
         private IVsRunningDocumentTable _runningDocumentTable;
         private IWpfTextView _activeWpfTextView;
+        private ToolWindowPane _navigationWindow;
 
         /// <summary>
         /// Default constructor of the package.
@@ -103,7 +104,7 @@ namespace ICETeam.TestPackage
             }
 
             var componentModel = (IComponentModel)this.GetService(typeof(SComponentModel));
-            _vsWorkspace = componentModel.GetService<VisualStudioWorkspace>();
+            _vsWorkspace = componentModel.GetService<VisualStudioWorkspace>(); 
         }
 
         private void BeforeNavigateToolWindowSelected(object sender, EventArgs e)
@@ -142,20 +143,20 @@ namespace ICETeam.TestPackage
             var currentSnapshot = GetAndCheckCurrentSnapshot();
             if (currentSnapshot == null) return;
 
-            var window = this.FindToolWindow(typeof(TestPackageNavigationToolWindow), 0, true);
-            if (window?.Frame == null)
+            _navigationWindow = this.FindToolWindow(typeof(TestPackageNavigationToolWindow), 0, true);
+            if (_navigationWindow?.Frame == null)
             {
                 throw new NotSupportedException("Not Found");
             }
 
-            var windowFrame = PlaceWindowToCaretPosition(window);
+            var windowFrame = PlaceWindowToCaretPosition(_navigationWindow);
 
             if (_parseLogic != null)
             {
                 var caretPosition = _activeWpfTextView.Selection.Start;
                 var documentId = _vsWorkspace.GetDocumentIdInCurrentContext(_activeWpfTextView.TextBuffer.AsTextContainer());
 
-                _testPackageNavigationControlViewModel = (TestPackageNavigationControlViewModel)((TestPackageNavigationControl)window.Content).DataContext;
+                _testPackageNavigationControlViewModel = (TestPackageNavigationControlViewModel)((TestPackageNavigationControl)_navigationWindow.Content).DataContext;
                 _testPackageNavigationControlViewModel.RefreshData(_parseLogic.ParsedData, documentId, caretPosition.Position);
 
                 _testPackageNavigationControlViewModel.SelectedItemChangedEvent += TestPackageNavigationControlViewModelOnSelectedItemChangedEvent;
@@ -210,6 +211,9 @@ namespace ICETeam.TestPackage
             _vsWorkspace.OpenDocument(selectedItemChangedEventArgs.SelectedItem.ContainingDocumentId);
 
             NavigateTo(selectedItemChangedEventArgs.SelectedItem.Node.Span);
+
+            var windowFrame = (IVsWindowFrame)_navigationWindow.Frame;
+            windowFrame.Hide();
         }
 
         private void TestPackageControlViewModelOnSelectedItemChangedEvent(object sender, SelectedItemChangedEventArgs selectedItemChangedEventArgs)

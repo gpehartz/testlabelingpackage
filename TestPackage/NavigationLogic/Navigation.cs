@@ -41,8 +41,8 @@ namespace ICETeam.TestPackage.NavigationLogic
                 var variableMethodConnection = connection as VariableDeclarationByBaseTypeAndMethodConnectionDefinition;
                 if (variableMethodConnection == null) continue;
 
-                var labelsOnSource = CheckSourceByDefinition(actualDocumentId, parsedData, variableMethodConnection).ToList();
-                var sourceResult = labelsOnSource.Any(item => item.Node.Span.Contains(position));
+                var labelsOnSource = CheckSourceByDefinition(actualDocumentId, parsedData, variableMethodConnection).Where(item => item.Node.Span.Contains(position)).ToList();
+                var sourceResult = labelsOnSource.Any();
                 if(!sourceResult) continue;
 
                 var labelsOnTarget = CheckTargetByDefinitions(parsedData, labelsOnSource, variableMethodConnection);
